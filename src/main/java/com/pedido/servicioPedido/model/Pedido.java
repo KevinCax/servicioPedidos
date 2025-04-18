@@ -1,13 +1,12 @@
 package com.pedido.servicioPedido.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+
 
 @Entity
 @Table(name = "orders")
@@ -17,6 +16,7 @@ import java.util.List;
 public class Pedido {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
@@ -29,10 +29,10 @@ public class Pedido {
     @Column(name = "cliente_id")
     private Long clienteId;
 
+    @Column(name = "total")
+    private BigDecimal total;
+
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "order_id")
     private List<PedidoDetalle> detalles;
-
-    @Column(name = "total")
-    private BigDecimal total;
 }
